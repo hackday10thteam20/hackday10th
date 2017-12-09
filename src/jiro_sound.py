@@ -57,7 +57,6 @@ class JiroSound:
     for n in self.sound_files:
       full_file_path = self.__full_file_path(n)
       self.sounds.append(pygame.mixer.Sound(full_file_path))
-      i = i+1
     print("Finish loading sound files...\n")
 
   # Play sound (Private)
