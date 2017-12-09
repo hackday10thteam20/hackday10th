@@ -7,18 +7,18 @@ class JiroSound:
 
   # Sound file paths
   sound_files = [
-    "sound/bgm_maoudamashii_ethnic11.ogg",
-    "sound/bgm_maoudamashii_ethnic12.ogg",
-    "sound/bgm_maoudamashii_ethnic25.ogg",
-    "sound/bgm_maoudamashii_ethnic15.ogg",
-    "sound/bgm_maoudamashii_ethnic16.ogg",
-    "sound/bgm_maoudamashii_ethnic17.ogg",
-    "sound/bgm_maoudamashii_ethnic18.ogg",
-    "sound/bgm_maoudamashii_ethnic19.ogg",
-    "sound/bgm_maoudamashii_ethnic20.ogg",
-    "sound/bgm_maoudamashii_ethnic21.ogg",
-    "sound/bgm_maoudamashii_ethnic22.ogg",
-    "sound/bgm_maoudamashii_ethnic23.ogg",
+    "./sound/bgm_maoudamashii_ethnic11.ogg",
+    "./sound/bgm_maoudamashii_ethnic12.ogg",
+    "./sound/bgm_maoudamashii_ethnic25.ogg",
+    "./sound/bgm_maoudamashii_ethnic15.ogg",
+    "./sound/bgm_maoudamashii_ethnic16.ogg",
+    "./sound/bgm_maoudamashii_ethnic17.ogg",
+    "./sound/bgm_maoudamashii_ethnic18.ogg",
+    "./sound/bgm_maoudamashii_ethnic19.ogg",
+    "./sound/bgm_maoudamashii_ethnic20.ogg",
+    "./sound/bgm_maoudamashii_ethnic21.ogg",
+    "./sound/bgm_maoudamashii_ethnic22.ogg",
+    "./sound/bgm_maoudamashii_ethnic23.ogg",
   ]
 
   sounds = []
@@ -52,7 +52,7 @@ class JiroSound:
     played_level = math.ceil(level/max_level*len(self.sound_files))
     print("played_level"+str(played_level))
     self.__play_sound(played_level)
-    time.sleep(60)
+    #time.sleep(60)
 
   # Play demo sounds
   def play_demo_sounds(self):
