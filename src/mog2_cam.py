@@ -13,11 +13,15 @@ def calcVal(img, x):
 
 # ここからメインの処理
 
+# 評価値の最大
+MAX_VALUE = 1000 # 屋外
+#MAX_VALUE = 9600 # 屋内
+
 # 音周りの初期化
 jiroSound = jiro_sound.JiroSound()
 
 # グラフ周りの初期化
-graph = graph.Graph()
+graph = graph.Graph(int(MAX_VALUE*1.1))
 
 print('initialize camera')
 cap = cv2.VideoCapture(1)
@@ -58,10 +62,10 @@ while(1):
     vals[2][loop] = calcVal(fgmask, int(width/4*3)) # 右
     result = np.sum(vals)
     print(str(result) + " " + str(vals))
-    if result > 9600:
-        result = 9600
+    if result > MAX_VALUE:
+        result = MAX_VALUE
     # 音を鳴らす
-    jiroSound.play_sound(result, 9600)
+    jiroSound.play_sound(result, MAX_VALUE)
     # グラフを描画
     graph.drawing(result)
 
