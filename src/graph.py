@@ -12,7 +12,7 @@ class Graph:
         #インタラクティブ描画
         plt.ion()
         plt.figure()
-        plt.ylim(0, 100)
+        plt.ylim(0, 10000)
         self.li, = plt.plot(self.t, self.y)
         plt.xlabel("count")
         plt.ylabel("score")
@@ -33,13 +33,7 @@ class Graph:
         plt.draw()
 
         self.time += 1
-        #result += 1
-        plt.pause(1)
-    #except KeyboardInterrupt:
-    #    break
-
-    def __del__(self)
-        break
+        #plt.pause(1)
 
 # DEBUG
 #graph = Graph();
