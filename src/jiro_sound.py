@@ -86,18 +86,23 @@ class JiroSound:
     self.__play_sound(played_level)
     #time.sleep(60)
 
-  # Play demo sounds
-  def play_demo_sounds(self):
+  # Test to play random level sounds
+  def test_to_play_random_level_sounds(self):
     len_sound_files = len(self.sound_files)
     while True:
       random = randint(len_sound_files)+1
       print("Played Level: "+str(random))
       self.__play_sound(random)
       time.sleep(2)
-#    for level in range(len_sound_files):
-#      played_level = len_sound_files-level
-#      print("Level: "+str(played_level))
-#      self.__play_sound(played_level)
-#      print("\n")
-#      time.sleep(2)
+    time.sleep(60)
+
+  # Test to play increasing level sounds
+  def test_to_play_level_increasing_sounds(self):
+    len_sound_files = len(self.sound_files)
+    for level in range(len_sound_files):
+      played_level = len_sound_files-level
+      print("Level: "+str(played_level))
+      self.__play_sound(played_level)
+      print("\n")
+      time.sleep(2)
     time.sleep(60)
