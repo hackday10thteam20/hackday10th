@@ -1,3 +1,4 @@
+import os
 import pygame.mixer
 import time
 import math
@@ -5,20 +6,21 @@ import math
 # JiroSound
 class JiroSound:
 
+  basedir = os.path.dirname(__file__)
   # Sound file paths
   sound_files = [
-    "./sound/bgm_maoudamashii_ethnic11.ogg",
-    "./sound/bgm_maoudamashii_ethnic12.ogg",
-    "./sound/bgm_maoudamashii_ethnic25.ogg",
-    "./sound/bgm_maoudamashii_ethnic15.ogg",
-    "./sound/bgm_maoudamashii_ethnic16.ogg",
-    "./sound/bgm_maoudamashii_ethnic17.ogg",
-    "./sound/bgm_maoudamashii_ethnic18.ogg",
-    "./sound/bgm_maoudamashii_ethnic19.ogg",
-    "./sound/bgm_maoudamashii_ethnic20.ogg",
-    "./sound/bgm_maoudamashii_ethnic21.ogg",
-    "./sound/bgm_maoudamashii_ethnic22.ogg",
-    "./sound/bgm_maoudamashii_ethnic23.ogg",
+    basedir + "/../sound/bgm_maoudamashii_ethnic11.ogg",
+    basedir + "/../sound/bgm_maoudamashii_ethnic12.ogg",
+    basedir + "/../sound/bgm_maoudamashii_ethnic25.ogg",
+    basedir + "/../sound/bgm_maoudamashii_ethnic15.ogg",
+    basedir + "/../sound/bgm_maoudamashii_ethnic16.ogg",
+    basedir + "/../sound/bgm_maoudamashii_ethnic17.ogg",
+    basedir + "/../sound/bgm_maoudamashii_ethnic18.ogg",
+    basedir + "/../sound/bgm_maoudamashii_ethnic19.ogg",
+    basedir + "/../sound/bgm_maoudamashii_ethnic20.ogg",
+    basedir + "/../sound/bgm_maoudamashii_ethnic21.ogg",
+    basedir + "/../sound/bgm_maoudamashii_ethnic22.ogg",
+    basedir + "/../sound/bgm_maoudamashii_ethnic23.ogg",
   ]
 
   sounds = []
