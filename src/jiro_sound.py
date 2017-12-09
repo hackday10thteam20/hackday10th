@@ -11,6 +11,15 @@ class JiroSound:
   # Sound file paths
 
   sound_files_1 = [
+    "1_piano.ogg",
+    "2_wood_bass.ogg",
+    "3_riging_up_chorus.ogg",
+    "4_boss_level_beat.ogg",
+    "5_conga.ogg",
+    "6_triangle.ogg",
+  ]
+
+  sound_files_2 = [
     "bgm_maoudamashii_ethnic11.ogg",
     "bgm_maoudamashii_ethnic12.ogg",
     "bgm_maoudamashii_ethnic25.ogg",
@@ -23,16 +32,6 @@ class JiroSound:
     "bgm_maoudamashii_ethnic21.ogg",
     "bgm_maoudamashii_ethnic22.ogg",
     "bgm_maoudamashii_ethnic23.ogg",
-  ]
-
-  sound_files_2 = [
-    "1_piano.ogg",
-    "2_wood_bass.ogg",
-    "3_boss_level_beat.ogg",
-    "4_conga.ogg",
-    "5_triangle.ogg",
-    "7_constraction_bot_topper.ogg",
-    "8_chaos_guiter.ogg",
   ]
 
   sound_files = []
@@ -72,7 +71,7 @@ class JiroSound:
         if self.played_channels[i] == 1:
           pygame.mixer.Channel(i).unpause()
         else:
-          pygame.mixer.Channel(i).play(track)
+          pygame.mixer.Channel(i).play(track, -1)
         self.played_channels[i] = 1
 
     if self.previous_level > level:
@@ -102,7 +101,7 @@ class JiroSound:
     played_level = self.get_level(level, max_level)
     if played_level == 0:
       played_level = 1
-    print("Played Level: "+str(played_level))
+    print("Played Level: "+str(played_level)+"\n")
     self.__play_sound(played_level)
     #time.sleep(60)
 
