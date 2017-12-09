@@ -1,5 +1,7 @@
 import numpy as np
 import cv2
+import jiro_sound
+import graph
 
 # 任意のx座標中の白をカウントする
 def calcVal(img, x):
@@ -10,6 +12,14 @@ def calcVal(img, x):
     return val
 
 # ここからメインの処理
+
+# 音周りの初期化
+jiroSound = jiro_sound.JiroSound()
+
+# グラフ周りの初期化
+graph = graph.Graph()
+
+print('initialize camera')
 cap = cv2.VideoCapture(1)
 fgbg = cv2.createBackgroundSubtractorMOG2()
 
@@ -19,6 +29,8 @@ kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))
 # 物体が通過したかの値を管理
 vals = np.zeros(10)
 loop = 0
+
+print('main process start')
 
 while(1):
     # 動画を1フレーム読み込む
@@ -45,6 +57,10 @@ while(1):
     result = np.sum(vals)
     # 評価値として正規化
     print(str(int(result/(height*len(vals))*100)) + " " + str(vals))
+    # 音を鳴らす
+    jiroSound.play_sound(result, 9600)
+    # グラフを描画
+    graph.drawing(result)
 
     loop = (loop+1)%10
             
