@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 import jiro_sound
+import graph
 
 # 任意のx座標中の白をカウントする
 def calcVal(img, x):
@@ -13,8 +14,10 @@ def calcVal(img, x):
 # ここからメインの処理
 
 # 音周りの初期化
-JiroSound = jiro_sound.JiroSound
-jiroSound = JiroSound()
+jiroSound = jiro_sound.JiroSound()
+
+# グラフ周りの初期化
+graph = graph.Graph()
 
 print('initialize camera')
 cap = cv2.VideoCapture(1)
@@ -56,6 +59,8 @@ while(1):
     print(str(int(result/(height*len(vals))*100)) + " " + str(vals))
     # 音を鳴らす
     jiroSound.play_sound(result, 9600)
+    # グラフを描画
+    graph.drawing(result)
 
     loop = (loop+1)%10
             
