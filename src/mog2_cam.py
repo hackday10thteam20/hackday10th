@@ -1,12 +1,24 @@
 import numpy as np
 import cv2
 
-cap = cv2.VideoCapture(1)
+# 任意のx座標中の白をカウントする
+def calcVal(img, x):
+    val = 0
+    for i in img[:, x]:
+        if i == 255:
+            val+=1
+    return val
 
+# ここからメインの処理
+cap = cv2.VideoCapture(1)
 fgbg = cv2.createBackgroundSubtractorMOG2()
 
 # オープニング処理
 kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))
+
+# 物体が通過したかの値を管理
+vals = np.zeros(10)
+loop = 0
 
 while(1):
     # 動画を1フレーム読み込む
@@ -27,15 +39,14 @@ while(1):
     # 表示
     cv2.imshow('frame',fgmask)
 
-    # 中央のx座標中の白をカウントする
+    # 中央の通過数をカウント
     height, width = fgmask.shape[:2]
-    x = int(width/2)
-    val = 0
-    for y in range(height):
-        if fgmask[y, x] == 255:
-            val+=1
+    vals[loop] = calcVal(fgmask, int(width/2))
+    result = np.sum(vals)
+    # 評価値として正規化
+    print(str(int(result/(height*len(vals))*100)) + " " + str(vals))
 
-    print(val)
+    loop = (loop+1)%10
             
 cap.release()
 cv2.destroyAllWindows()
