@@ -39,27 +39,30 @@ class JiroSound:
 
   # Play sound (Private)
   def __play_sound(self, level):
+    # Reset sound
+    for i in range(len(self.sound_files)):
+      pygame.mixer.Channel(i).stop()
+
     for i in range(level):
       track = self.sounds[i]
       file_path = self.sound_files[i]
       print(file_path)
       pygame.mixer.Channel(i).play(track)
-    # Stop sound
-    pygame.mixer.music.stop()
 
   # Play sound for Tamefusa OpenCV caller
   def play_sound(self, level, max_level):
     played_level = math.ceil(level/max_level*len(self.sound_files))
-    print("played_level"+str(played_level))
+    print("Played Level: "+str(played_level))
     self.__play_sound(played_level)
     #time.sleep(60)
 
   # Play demo sounds
   def play_demo_sounds(self):
-    for level in range(len(self.sound_files)):
-      played_level = level+1
+    len_sound_files = len(self.sound_files)
+    for level in range(len_sound_files):
+      played_level = len_sound_files-level
       print("Level: "+str(played_level))
       self.__play_sound(played_level)
       print("\n")
-      time.sleep(5)
+      time.sleep(1)
     time.sleep(60)
