@@ -2,6 +2,8 @@ import os
 import pygame.mixer
 import time
 import math
+import numpy
+from numpy.random import *
 
 # JiroSound
 class JiroSound:
@@ -25,11 +27,16 @@ class JiroSound:
 
   sounds = []
 
+
+  previous_level = 0
+
   # Init
   def __init__(self):
     # Init mixer module
     pygame.init()
     pygame.mixer.set_num_channels(len(self.sound_files))
+
+    self.played_channels = numpy.zeros(len(self.sound_files))
 
     # Read sound files
     print("Loading sound files...")
@@ -41,15 +48,34 @@ class JiroSound:
 
   # Play sound (Private)
   def __play_sound(self, level):
-    # Reset sound
-    for i in range(len(self.sound_files)):
-      pygame.mixer.Channel(i).stop()
+    if self.previous_level == level:
+      return
 
-    for i in range(level):
-      track = self.sounds[i]
-      file_path = self.sound_files[i]
-      print(file_path)
-      pygame.mixer.Channel(i).play(track)
+    if self.previous_level < level:
+      for i in range(self.previous_level, level):
+        track = self.sounds[i]
+        if self.played_channels[i] == 1:
+          pygame.mixer.Channel(i).unpause()
+        else:
+          pygame.mixer.Channel(i).play(track)
+        self.played_channels[i] = 1
+
+    if self.previous_level > level:
+      for i in range(level, self.previous_level):
+        track = self.sounds[i]
+        pygame.mixer.Channel(i).pause()
+
+    self.previous_level = level
+
+    # Reset sound
+#    for i in range(len(self.sound_files)):
+#      pygame.mixer.Channel(i).fadeout(500)
+
+#    for i in range(level):
+#      track = self.sounds[i]
+#      file_path = self.sound_files[i]
+#      print(file_path)
+#      pygame.mixer.Channel(i).play(track)
 
   # Play sound for Tamefusa OpenCV caller
   def play_sound(self, level, max_level):
@@ -61,10 +87,15 @@ class JiroSound:
   # Play demo sounds
   def play_demo_sounds(self):
     len_sound_files = len(self.sound_files)
-    for level in range(len_sound_files):
-      played_level = len_sound_files-level
-      print("Level: "+str(played_level))
-      self.__play_sound(played_level)
-      print("\n")
-      time.sleep(1)
+    while True:
+      random = randint(len_sound_files)+1
+      print("Played Level: "+str(random))
+      self.__play_sound(random)
+      time.sleep(2)
+#    for level in range(len_sound_files):
+#      played_level = len_sound_files-level
+#      print("Level: "+str(played_level))
+#      self.__play_sound(played_level)
+#      print("\n")
+#      time.sleep(2)
     time.sleep(60)
