@@ -80,6 +80,8 @@ class JiroSound:
   # Play sound for Tamefusa OpenCV caller
   def play_sound(self, level, max_level):
     played_level = math.ceil(level/max_level*len(self.sound_files))
+    if played_level == 0:
+      played_level = 1
     print("Played Level: "+str(played_level))
     self.__play_sound(played_level)
     #time.sleep(60)
