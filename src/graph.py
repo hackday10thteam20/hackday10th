@@ -1,37 +1,50 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-# 配列
-t = np.zeros(100)
-y = np.zeros(100)
-time = 0
-result = 0
+class Graph:
+    def __init__(self):
+        # 配列
+        self.t = np.zeros(100)
+        self.y = np.zeros(100)
+        self.time = 0
+        self.result = 0
 
-#インタラクティブ描画
-plt.ion()
-plt.figure()
-li, = plt.plot(t, y)
-plt.ylim(0, 100)
-plt.xlabel("time[s]")
-plt.ylabel("score")
+        #インタラクティブ描画
+        plt.ion()
+        plt.figure()
+        plt.ylim(0, 100)
+        self.li, = plt.plot(self.t, self.y)
+        plt.xlabel("count")
+        plt.ylabel("score")
 
-while True:
-    try:
+    #while True:
+    #try:
+    def drawing(self, result):
+        print(self)
         # 配列をキューと見たてて要素を追加・削除
-        t = np.append(t, time)
-        t = np.delete(t, 0)
-        print(t)
-        y = np.append(y, result)
-        y = np.delete(y, 0)
+        self.t = np.append(self.t, self.time)
+        self.t = np.delete(self.t, 0)
+        self.y = np.append(self.y, result)
+        self.y = np.delete(self.y, 0)
 
-        li.set_xdata(t)
-        li.set_ydata(y)           
-        plt.xlim(min(t), max(t))
+        self.li.set_xdata(self.t)
+        self.li.set_ydata(self.y)           
+        plt.xlim(min(self.t), max(self.t))
         plt.draw()
 
-        time += 1
-        result += 1
+        self.time += 1
+        #result += 1
         plt.pause(1)
-    except KeyboardInterrupt:
+    #except KeyboardInterrupt:
+    #    break
+
+    def __del__(self)
         break
 
+# DEBUG
+#graph = Graph();
+#while True:
+#    try:
+#        graph.drawing(10);
+#    except KeyboardInterrupt:
+#        break
