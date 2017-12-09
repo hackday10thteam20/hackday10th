@@ -8,25 +8,39 @@ from numpy.random import *
 # JiroSound
 class JiroSound:
 
-  basedir = os.path.dirname(__file__)
   # Sound file paths
-  sound_files = [
-    basedir + "/../sound/bgm_maoudamashii_ethnic11.ogg",
-    basedir + "/../sound/bgm_maoudamashii_ethnic12.ogg",
-    basedir + "/../sound/bgm_maoudamashii_ethnic25.ogg",
-    basedir + "/../sound/bgm_maoudamashii_ethnic15.ogg",
-    basedir + "/../sound/bgm_maoudamashii_ethnic16.ogg",
-    basedir + "/../sound/bgm_maoudamashii_ethnic17.ogg",
-    basedir + "/../sound/bgm_maoudamashii_ethnic18.ogg",
-    basedir + "/../sound/bgm_maoudamashii_ethnic19.ogg",
-    basedir + "/../sound/bgm_maoudamashii_ethnic20.ogg",
-    basedir + "/../sound/bgm_maoudamashii_ethnic21.ogg",
-    basedir + "/../sound/bgm_maoudamashii_ethnic22.ogg",
-    basedir + "/../sound/bgm_maoudamashii_ethnic23.ogg",
+
+  sound_files_1 = [
+    "bgm_maoudamashii_ethnic11.ogg",
+    "bgm_maoudamashii_ethnic12.ogg",
+    "bgm_maoudamashii_ethnic25.ogg",
+    "bgm_maoudamashii_ethnic15.ogg",
+    "bgm_maoudamashii_ethnic16.ogg",
+    "bgm_maoudamashii_ethnic17.ogg",
+    "bgm_maoudamashii_ethnic18.ogg",
+    "bgm_maoudamashii_ethnic19.ogg",
+    "bgm_maoudamashii_ethnic20.ogg",
+    "bgm_maoudamashii_ethnic21.ogg",
+    "bgm_maoudamashii_ethnic22.ogg",
+    "bgm_maoudamashii_ethnic23.ogg",
   ]
 
-  sounds = []
+  sound_files_2 = [
+#    "bgm_maoudamashii_ethnic23.ogg",
+#    "loop_90.ogg",
+#    "1_piano.wav",
+    "1_piano.ogg",
+#    "2_wood_bass.ogg",
+#    "3_boss_level_beat.ogg",
+#    "4_conga.ogg",
+#    "5_triangle.ogg",
+#    "7_constraction_bot_topper.ogg",
+#    "8_chaos_guiter.ogg",
+  ]
 
+  sound_files = sound_files_2
+
+  sounds = []
 
   previous_level = 0
 
@@ -41,7 +55,9 @@ class JiroSound:
     # Read sound files
     print("Loading sound files...")
     for n in self.sound_files:
-      self.sounds.append(pygame.mixer.Sound(n))
+      full_file_path = self.__full_file_path(n)
+      self.sounds.append(pygame.mixer.Sound(full_file_path))
+      i = i+1
     print("Finish loading sound files...\n")
 
   # Play sound (Private)
@@ -89,18 +105,37 @@ class JiroSound:
     self.__play_sound(played_level)
     #time.sleep(60)
 
-  # Play demo sounds
-  def play_demo_sounds(self):
+  # Generate file path
+  def __full_file_path(self, file_path):
+    basedir = os.path.dirname(__file__)
+    return basedir + "/../sound/" + file_path
+
+  # Test to play random level sounds
+  def test_to_play_random_level_sounds(self):
     len_sound_files = len(self.sound_files)
     while True:
       random = randint(len_sound_files)+1
       print("Played Level: "+str(random))
       self.__play_sound(random)
       time.sleep(2)
-#    for level in range(len_sound_files):
-#      played_level = len_sound_files-level
-#      print("Level: "+str(played_level))
-#      self.__play_sound(played_level)
-#      print("\n")
-#      time.sleep(2)
     time.sleep(60)
+
+  # Test to play increasing level sounds
+  def test_to_play_level_increasing_sounds(self):
+    len_sound_files = len(self.sound_files)
+    for level in range(len_sound_files):
+      played_level = len_sound_files-level
+      print("Level: "+str(played_level))
+      self.__play_sound(played_level)
+      print("\n")
+      time.sleep(2)
+    time.sleep(60)
+
+  # Test to play garageband sound
+  def test_to_play_garageband_sound(self):
+    #pygame.mixer.music.load("1_piano.wav")
+    file_path = self.__play_sound("bgm_maoudamashii_ethnic23.ogg")
+    pygame.mixer.music.load("bgm_maoudamashii_ethnic23.ogg")
+    #pygame.mixer.music.play()
+    time.sleep(60)
+
