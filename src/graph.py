@@ -1,4 +1,5 @@
 import numpy as np
+import seaborn as sns
 from matplotlib import pyplot as plt
 
 class Graph:
@@ -8,6 +9,9 @@ class Graph:
         self.y = np.zeros(100)
         self.time = 0
         self.result = 0
+
+        #change graph style
+        sns.set()
 
         #インタラクティブ描画
         plt.ion()
