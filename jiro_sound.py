@@ -6,14 +6,18 @@ class JiroSound:
 
   # Sound file paths
   sound_files = [
-    "sound/se_maoudamashii_instruments_piano1_1do.wav",
-    "sound/se_maoudamashii_instruments_piano1_2re.wav",
-    "sound/se_maoudamashii_instruments_piano1_3mi.wav",
-    "sound/se_maoudamashii_instruments_piano1_4fa.wav",
-    "sound/se_maoudamashii_instruments_piano1_5so.wav",
-    "sound/se_maoudamashii_instruments_piano1_6ra.wav",
-    "sound/se_maoudamashii_instruments_piano1_7si.wav",
-    "sound/se_maoudamashii_instruments_piano1_8do.wav"
+    "sound/bgm_maoudamashii_ethnic11.ogg",
+    "sound/bgm_maoudamashii_ethnic12.ogg",
+    "sound/bgm_maoudamashii_ethnic25.ogg",
+    "sound/bgm_maoudamashii_ethnic15.ogg",
+    "sound/bgm_maoudamashii_ethnic16.ogg",
+    "sound/bgm_maoudamashii_ethnic17.ogg",
+    "sound/bgm_maoudamashii_ethnic18.ogg",
+    "sound/bgm_maoudamashii_ethnic19.ogg",
+    "sound/bgm_maoudamashii_ethnic20.ogg",
+    "sound/bgm_maoudamashii_ethnic21.ogg",
+    "sound/bgm_maoudamashii_ethnic22.ogg",
+    "sound/bgm_maoudamashii_ethnic23.ogg",
   ]
 
   sounds = []
@@ -42,12 +46,12 @@ class JiroSound:
 
   # Play demo sounds
   def play_demo_sounds(self):
-    for level in range(8):
+    for level in range(len(self.sound_files)):
       played_level = level+1
       print("Level: "+str(played_level))
       self.play_sound(played_level)
       print("\n")
-      time.sleep(1)
+      time.sleep(5)
     time.sleep(60)
 
 
