@@ -22,7 +22,7 @@ class JiroSound:
   def __init__(self):
     # Init mixer module
     pygame.init()
-    pygame.mixer.set_num_channels(8)
+    pygame.mixer.set_num_channels(len(self.sound_files))
 
     # Read sound files
     i = 0
@@ -34,7 +34,8 @@ class JiroSound:
   def play_sound(self, level):
     for i in range(level):
       track = self.sounds[i]
-      print(track)
+      file_path = self.sound_files[i]
+      print(file_path)
       pygame.mixer.Channel(i).play(track)
     # Stop sound
     pygame.mixer.music.stop()
@@ -42,8 +43,10 @@ class JiroSound:
   # Play demo sounds
   def play_demo_sounds(self):
     for level in range(8):
-      print(level)
-      self.play_sound(level+1)
+      played_level = level+1
+      print("Level: "+str(played_level))
+      self.play_sound(played_level)
+      print("\n")
       time.sleep(1)
     time.sleep(60)
 
