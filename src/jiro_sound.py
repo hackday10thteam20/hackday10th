@@ -56,11 +56,9 @@ class JiroSound:
 
     # Read sound files
     print("Loading sound files...")
-    i = 0
     for n in self.sound_files:
-      full_file_path = self.__full_file_path(self.sound_files[i])
+      full_file_path = self.__full_file_path(n)
       self.sounds.append(pygame.mixer.Sound(full_file_path))
-      i = i+1
     print("Finish loading sound files...\n")
 
   # Play sound (Private)
@@ -94,9 +92,14 @@ class JiroSound:
 #      print(file_path)
 #      pygame.mixer.Channel(i).play(track)
 
+  def get_level(self, level, max_level):
+    if level > max_level:
+      level = max_level
+    return math.ceil(level/max_level*len(self.sound_files))
+
   # Play sound for Tamefusa OpenCV caller
   def play_sound(self, level, max_level):
-    played_level = math.ceil(level/max_level*len(self.sound_files))
+    played_level = self.get_level(level, max_level)
     if played_level == 0:
       played_level = 1
     print("Played Level: "+str(played_level))
