@@ -24,7 +24,6 @@ class Graph:
     #while True:
     #try:
     def drawing(self, result):
-        print(self)
         # 配列をキューと見たてて要素を追加・削除
         self.t = np.append(self.t, self.time)
         self.t = np.delete(self.t, 0)

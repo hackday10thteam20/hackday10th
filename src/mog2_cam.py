@@ -34,6 +34,9 @@ kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))
 vals = np.zeros((3, 10))
 loop = 0
 
+# デモ用フラグ(0:実画像 1:二値化)
+disp_flg = 0
+
 print('main process start')
 
 while(1):
@@ -54,6 +57,11 @@ while(1):
     fgmask = cv2.morphologyEx(fgmask, cv2.MORPH_OPEN, kernel)
     # 表示
     cv2.imshow('frame',fgmask)
+    
+    if disp_flg == 0:
+        cv2.imshow('frame',frame)
+    else:
+        cv2.imshow('frame',fgmask)
 
     # 中央の通過数をカウント
     height, width = fgmask.shape[:2]
@@ -70,6 +78,9 @@ while(1):
     graph.drawing(result)
 
     loop = (loop+1)%10
+
+    if loop == 0:
+        disp_flg = ~disp_flg
             
 cap.release()
 cv2.destroyAllWindows()
