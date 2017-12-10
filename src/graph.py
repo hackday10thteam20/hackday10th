@@ -3,7 +3,7 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 
 class Graph:
-    def __init__(self):
+    def __init__(self, ylim):
         # 配列
         self.t = np.zeros(100)
         self.y = np.zeros(100)
@@ -16,7 +16,7 @@ class Graph:
         #インタラクティブ描画
         plt.ion()
         plt.figure()
-        plt.ylim(0, 10000)
+        plt.ylim(0, ylim)
         self.li, = plt.plot(self.t, self.y)
         plt.xlabel("count")
         plt.ylabel("score")
