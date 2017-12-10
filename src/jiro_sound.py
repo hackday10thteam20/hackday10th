@@ -11,15 +11,6 @@ class JiroSound:
   # Sound file paths
 
   sound_files_1 = [
-    "1_piano.ogg",
-    "2_wood_bass.ogg",
-    "3_riging_up_chorus.ogg",
-    "4_boss_level_beat.ogg",
-    "5_conga.ogg",
-    "6_triangle.ogg",
-  ]
-
-  sound_files_2 = [
     "bgm_maoudamashii_ethnic11.ogg",
     "bgm_maoudamashii_ethnic12.ogg",
     "bgm_maoudamashii_ethnic25.ogg",
@@ -43,9 +34,12 @@ class JiroSound:
   # Init
   def __init__(self, sound_type=1):
     if sound_type == 2:
-      self.sound_files = self.sound_files_2
-    else:
       self.sound_files = self.sound_files_1
+    else:
+      number_of_music = 13
+      for n in range(number_of_music):
+        file_path = str(n+1)+".ogg"
+        self.sound_files.append(file_path)
 
     # Init mixer module
     pygame.init()
