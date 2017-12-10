@@ -4,6 +4,7 @@ import time
 import math
 import numpy
 from numpy.random import *
+import threading
 
 # JiroSound
 class JiroSound:
@@ -63,15 +64,15 @@ class JiroSound:
       for i in range(self.previous_level, level):
         track = self.sounds[i]
         if self.played_channels[i] == 1:
-          pygame.mixer.Channel(i).unpause()
+          self.fadein_unpause(i)
         else:
-          pygame.mixer.Channel(i).play(track, -1)
+          self.fadein_play(track, i)
         self.played_channels[i] = 1
 
     if self.previous_level > level:
       for i in range(level, self.previous_level):
         track = self.sounds[i]
-        pygame.mixer.Channel(i).pause()
+        self.fadeout_pause(i)
 
     self.previous_level = level
 
@@ -88,6 +89,60 @@ class JiroSound:
     print("Played Level: "+str(played_level)+"\n")
     self.__play_sound(played_level)
     #time.sleep(60)
+
+  # Fadein Play
+  def fadein_play(self, track, channel_num):
+    thread_name = "thread_fadein_play"+str(channel_num)
+    channel = pygame.mixer.Channel(channel_num)
+    thread_fadein_play = threading.Thread(target=self.__fadein_play, name=thread_name, args=(track, channel,))
+    thread_fadein_play.start()
+
+  # Fadein Play
+  def __fadein_play(self, track, channel):
+    sleep = 1
+    channel.play(track, -1)
+    for n in range(0, 10):
+      m = n+1
+      volume = m/10
+      channel.set_volume(volume)
+      #print("fadein: volume = "+str(volume))
+      pygame.time.wait(int(sleep/10*1000))
+
+  # Fadein Unpause
+  def fadein_unpause(self, channel_num):
+    thread_name = "thread_fadein_unpause"+str(channel_num)
+    channel = pygame.mixer.Channel(channel_num)
+    thread_fadein_unpause = threading.Thread(target=self.__fadein_unpause, name=thread_name, args=(channel,))
+    thread_fadein_unpause.start()
+
+  # Fadein Unpause
+  def __fadein_unpause(self, channel):
+    sleep = 1
+    channel.unpause()
+    for n in range(0, 10):
+      m = n+1
+      volume = m/10
+      channel.set_volume(volume)
+      #print("fadein: volume = "+str(volume))
+      pygame.time.wait(int(sleep/10*1000))
+
+  # Fadeout Pause
+  def fadeout_pause(self, channel_num):
+    thread_name = "thread_fadein_pause"+str(channel_num)
+    channel = pygame.mixer.Channel(channel_num)
+    thread_fadeout_pause = threading.Thread(target=self.__fadeout_pause, name=thread_name, args=(channel,))
+    thread_fadeout_pause.start()
+
+  # Fadeout Pause
+  def __fadeout_pause(self, channel):
+    sleep = 1
+    for n in range(0, 10):
+      m = n+1
+      volume = 1 - m/10
+      channel.set_volume(volume)
+      #print("fadeout: volume = "+str(volume))
+      pygame.time.wait(int(sleep/10*1000))
+    channel.pause()
 
   # Generate file path
   def __full_file_path(self, file_path):
