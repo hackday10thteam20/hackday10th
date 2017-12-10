@@ -32,6 +32,8 @@ class JiroSound:
 
   previous_level = 0
 
+  fade_time = 1.5
+
   # Init
   def __init__(self, sound_type=1):
     if sound_type == 2:
@@ -99,7 +101,7 @@ class JiroSound:
 
   # Fadein Play
   def __fadein_play(self, track, channel):
-    sleep = 1
+    sleep = self.fade_time
     channel.play(track, -1)
     for n in range(0, 10):
       m = n+1
@@ -117,7 +119,7 @@ class JiroSound:
 
   # Fadein Unpause
   def __fadein_unpause(self, channel):
-    sleep = 1
+    sleep = self.fade_time
     channel.unpause()
     for n in range(0, 10):
       m = n+1
@@ -135,7 +137,7 @@ class JiroSound:
 
   # Fadeout Pause
   def __fadeout_pause(self, channel):
-    sleep = 1
+    sleep = self.fade_time
     for n in range(0, 10):
       m = n+1
       volume = 1 - m/10
