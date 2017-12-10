@@ -81,16 +81,6 @@ class JiroSound:
 
     self.previous_level = level
 
-    # Reset sound
-#    for i in range(len(self.sound_files)):
-#      pygame.mixer.Channel(i).fadeout(500)
-
-#    for i in range(level):
-#      track = self.sounds[i]
-#      file_path = self.sound_files[i]
-#      print(file_path)
-#      pygame.mixer.Channel(i).play(track)
-
   def get_level(self, level, max_level):
     if level > max_level:
       level = max_level
@@ -130,13 +120,5 @@ class JiroSound:
       self.__play_sound(played_level)
       print("\n")
       time.sleep(2)
-    time.sleep(60)
-
-  # Test to play garageband sound
-  def test_to_play_garageband_sound(self):
-    #pygame.mixer.music.load("1_piano.wav")
-    file_path = self.__play_sound("bgm_maoudamashii_ethnic23.ogg")
-    pygame.mixer.music.load("bgm_maoudamashii_ethnic23.ogg")
-    #pygame.mixer.music.play()
     time.sleep(60)
 
