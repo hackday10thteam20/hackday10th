@@ -13,11 +13,15 @@ def calcVal(img, x):
 
 # ここからメインの処理
 
+# 評価値の最大
+MAX_VALUE = 1000 # 屋外
+#MAX_VALUE = 9600 # 屋内
+
 # 音周りの初期化
 jiroSound = jiro_sound.JiroSound()
 
 # グラフ周りの初期化
-graph = graph.Graph()
+graph = graph.Graph(int(MAX_VALUE*1.1))
 
 print('initialize camera')
 cap = cv2.VideoCapture(1)
@@ -27,7 +31,7 @@ fgbg = cv2.createBackgroundSubtractorMOG2()
 kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))
 
 # 物体が通過したかの値を管理
-vals = np.zeros(10)
+vals = np.zeros((3, 10))
 loop = 0
 
 print('main process start')
@@ -53,12 +57,15 @@ while(1):
 
     # 中央の通過数をカウント
     height, width = fgmask.shape[:2]
-    vals[loop] = calcVal(fgmask, int(width/2))
+    vals[0][loop] = calcVal(fgmask, int(width/2)) # 中央
+    vals[1][loop] = calcVal(fgmask, int(width/4)) # 左
+    vals[2][loop] = calcVal(fgmask, int(width/4*3)) # 右
     result = np.sum(vals)
-    # 評価値として正規化
-    print(str(int(result/(height*len(vals))*100)) + " " + str(vals))
+    print(str(result) + " " + str(vals))
+    if result > MAX_VALUE:
+        result = MAX_VALUE
     # 音を鳴らす
-    jiroSound.play_sound(result, 9600)
+    jiroSound.play_sound(result, MAX_VALUE)
     # グラフを描画
     graph.drawing(result)
 

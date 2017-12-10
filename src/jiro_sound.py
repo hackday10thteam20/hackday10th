@@ -11,6 +11,15 @@ class JiroSound:
   # Sound file paths
 
   sound_files_1 = [
+    "1_piano.ogg",
+    "2_wood_bass.ogg",
+    "3_riging_up_chorus.ogg",
+    "4_boss_level_beat.ogg",
+    "5_conga.ogg",
+    "6_triangle.ogg",
+  ]
+
+  sound_files_2 = [
     "bgm_maoudamashii_ethnic11.ogg",
     "bgm_maoudamashii_ethnic12.ogg",
     "bgm_maoudamashii_ethnic25.ogg",
@@ -25,27 +34,19 @@ class JiroSound:
     "bgm_maoudamashii_ethnic23.ogg",
   ]
 
-  sound_files_2 = [
-#    "bgm_maoudamashii_ethnic23.ogg",
-#    "loop_90.ogg",
-#    "1_piano.wav",
-    "1_piano.ogg",
-#    "2_wood_bass.ogg",
-#    "3_boss_level_beat.ogg",
-#    "4_conga.ogg",
-#    "5_triangle.ogg",
-#    "7_constraction_bot_topper.ogg",
-#    "8_chaos_guiter.ogg",
-  ]
-
-  sound_files = sound_files_2
+  sound_files = []
 
   sounds = []
 
   previous_level = 0
 
   # Init
-  def __init__(self):
+  def __init__(self, sound_type=1):
+    if sound_type == 2:
+      self.sound_files = self.sound_files_2
+    else:
+      self.sound_files = self.sound_files_1
+
     # Init mixer module
     pygame.init()
     pygame.mixer.set_num_channels(len(self.sound_files))
@@ -70,7 +71,7 @@ class JiroSound:
         if self.played_channels[i] == 1:
           pygame.mixer.Channel(i).unpause()
         else:
-          pygame.mixer.Channel(i).play(track)
+          pygame.mixer.Channel(i).play(track, -1)
         self.played_channels[i] = 1
 
     if self.previous_level > level:
@@ -100,7 +101,7 @@ class JiroSound:
     played_level = self.get_level(level, max_level)
     if played_level == 0:
       played_level = 1
-    print("Played Level: "+str(played_level))
+    print("Played Level: "+str(played_level)+"\n")
     self.__play_sound(played_level)
     #time.sleep(60)
 
@@ -113,9 +114,10 @@ class JiroSound:
   def test_to_play_random_level_sounds(self):
     len_sound_files = len(self.sound_files)
     while True:
-      random = randint(len_sound_files)+1
-      print("Played Level: "+str(random))
-      self.__play_sound(random)
+      max_level = 9600
+      random = randint(max_level)
+      print("Input Level: "+str(random))
+      self.play_sound(random, max_level)
       time.sleep(2)
     time.sleep(60)
 
