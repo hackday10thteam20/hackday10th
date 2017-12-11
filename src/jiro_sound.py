@@ -9,8 +9,7 @@ import threading
 # JiroSound
 class JiroSound:
 
-  # Sound file paths
-
+  # Sound file names
   sound_files_1 = [
     "bgm_maoudamashii_ethnic11.ogg",
     "bgm_maoudamashii_ethnic12.ogg",
@@ -26,7 +25,10 @@ class JiroSound:
     "bgm_maoudamashii_ethnic23.ogg",
   ]
 
+  # Sound file names
   sound_files = []
+
+  number_of_music = 13
 
   sounds = []
 
@@ -39,8 +41,7 @@ class JiroSound:
     if sound_type == 2:
       self.sound_files = self.sound_files_1
     else:
-      number_of_music = 13
-      for n in range(number_of_music):
+      for n in range(self.number_of_music):
         file_path = str(n+1)+".ogg"
         self.sound_files.append(file_path)
 
@@ -78,28 +79,27 @@ class JiroSound:
 
     self.previous_level = level
 
-  def get_level(self, level, max_level):
+  def __get_level(self, level, max_level):
     if level > max_level:
       level = max_level
     return math.ceil(level/max_level*len(self.sound_files))
 
   # Play sound for Tamefusa OpenCV caller
   def play_sound(self, level, max_level):
-    played_level = self.get_level(level, max_level)
+    played_level = self.__get_level(level, max_level)
     if played_level == 0:
       played_level = 1
     print("Played Level: "+str(played_level)+"\n")
     self.__play_sound(played_level)
     #time.sleep(60)
 
-  # Fadein Play
+  # Fadein Play ( Thread execution )
   def fadein_play(self, track, channel_num):
     thread_name = "thread_fadein_play"+str(channel_num)
     channel = pygame.mixer.Channel(channel_num)
     thread_fadein_play = threading.Thread(target=self.__fadein_play, name=thread_name, args=(track, channel,))
     thread_fadein_play.start()
 
-  # Fadein Play
   def __fadein_play(self, track, channel):
     sleep = self.fade_time
     channel.play(track, -1)
@@ -110,14 +110,13 @@ class JiroSound:
       #print("fadein: volume = "+str(volume))
       pygame.time.wait(int(sleep/10*1000))
 
-  # Fadein Unpause
+  # Fadein Unpause ( Thread execution )
   def fadein_unpause(self, channel_num):
     thread_name = "thread_fadein_unpause"+str(channel_num)
     channel = pygame.mixer.Channel(channel_num)
     thread_fadein_unpause = threading.Thread(target=self.__fadein_unpause, name=thread_name, args=(channel,))
     thread_fadein_unpause.start()
 
-  # Fadein Unpause
   def __fadein_unpause(self, channel):
     sleep = self.fade_time
     channel.unpause()
@@ -128,14 +127,13 @@ class JiroSound:
       #print("fadein: volume = "+str(volume))
       pygame.time.wait(int(sleep/10*1000))
 
-  # Fadeout Pause
+  # Fadeout Pause ( Thread execution )
   def fadeout_pause(self, channel_num):
     thread_name = "thread_fadein_pause"+str(channel_num)
     channel = pygame.mixer.Channel(channel_num)
     thread_fadeout_pause = threading.Thread(target=self.__fadeout_pause, name=thread_name, args=(channel,))
     thread_fadeout_pause.start()
 
-  # Fadeout Pause
   def __fadeout_pause(self, channel):
     sleep = self.fade_time
     for n in range(0, 10):
@@ -159,7 +157,7 @@ class JiroSound:
       random = randint(max_level)
       print("Input Level: "+str(random))
       self.play_sound(random, max_level)
-      time.sleep(2)
+      time.sleep(3)
     time.sleep(60)
 
   # Test to play increasing level sounds
@@ -170,6 +168,6 @@ class JiroSound:
       print("Level: "+str(played_level))
       self.__play_sound(played_level)
       print("\n")
-      time.sleep(2)
+      time.sleep(3)
     time.sleep(60)
 
