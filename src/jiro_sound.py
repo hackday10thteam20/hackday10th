@@ -28,7 +28,7 @@ class JiroSound:
   # Sound file names
   sound_files = []
 
-  number_of_music = 13
+  number_of_music = 7
 
   sounds = []
 
