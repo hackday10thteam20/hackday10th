@@ -1,5 +1,5 @@
 # hackday10th
-hi!
+We are 二郎は半麺派.
 
 # setup
 1. Balloon class のusb シリアル番号を変える
