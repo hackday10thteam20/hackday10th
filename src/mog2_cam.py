@@ -26,7 +26,7 @@ balloon = balloon.Balloon()
 jiroSound = jiro_sound.JiroSound()
 
 # グラフ周りの初期化
-graph = graph.Graph(int(MAX_VALUE*1.1))
+#graph = graph.Graph(int(MAX_VALUE*1.1))
 
 print('initialize camera')
 cap = cv2.VideoCapture(0)
@@ -80,7 +80,7 @@ while(1):
     # 音を鳴らす
     jiroSound.play_sound(result, MAX_VALUE)
     # グラフを描画
-    graph.drawing(result)
+    #graph.drawing(result)
 
     loop = (loop+1)%10
 
@@ -88,7 +88,7 @@ while(1):
         disp_flg = ~disp_flg
 
     # バルーンの on /off
-    if result >= MAX_VALUE:
+    if result >= MAX_VALUE/2:
         balloon.send(True)
         print("balloon!!!!")
     else:

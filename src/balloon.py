@@ -3,7 +3,7 @@ import os
 
 class Balloon:
     # 必要に応じてusbの番号を変える
-    usb = '/dev/tty.usbmodem14611' 
+    usb = '/dev/tty.usbmodem1411' 
     port = 9600
     message = "b\r"
     ser = serial.Serial(usb, port, timeout=10)
