@@ -1,11 +1,9 @@
-import sys
 import serial
 import os
-import time
-import random
 
-class Ballon:
-    usb = '/dev/tty.usbmodem1411' 
+class Balloon:
+    # 必要に応じてusbの番号を変える
+    usb = '/dev/tty.usbmodem14611' 
     port = 9600
     message = "b\r"
     ser = serial.Serial(usb, port, timeout=10)

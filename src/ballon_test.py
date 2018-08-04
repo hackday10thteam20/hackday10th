@@ -1,7 +1,7 @@
 import balloon
 import time 
 
-balloon = balloon.Ballon()
+balloon = balloon.Balloon()
 i = 0;
 while True:
     balloon.send(True)
