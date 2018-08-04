@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import jiro_sound
 import graph
+import balloon
 
 # 任意のx座標中の白をカウントする
 def calcVal(img, x):
@@ -14,17 +15,20 @@ def calcVal(img, x):
 # ここからメインの処理
 
 # 評価値の最大
-MAX_VALUE = 1000 # 屋外
-#MAX_VALUE = 9600 # 屋内
+#MAX_VALUE = 1000 # 屋外
+MAX_VALUE = 9600 # 屋内
 
 # 音周りの初期化
 jiroSound = jiro_sound.JiroSound()
 
+#　風船周りの初期化
+balloon = balloon.Balloon()
+
 # グラフ周りの初期化
-graph = graph.Graph(int(MAX_VALUE*1.1))
+#graph = graph.Graph(int(MAX_VALUE*1.1))
 
 print('initialize camera')
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 fgbg = cv2.createBackgroundSubtractorMOG2()
 
 # オープニング処理
@@ -75,7 +79,15 @@ while(1):
     # 音を鳴らす
     jiroSound.play_sound(result, MAX_VALUE)
     # グラフを描画
-    graph.drawing(result)
+   # graph.drawing(result)
+
+    #風船をふくらませる
+    if result >= MAX_VALUE:
+        balloon.send(True)
+        print("balloon!!!!")
+    else:
+        balloon.send(False)
+        print("not balloon......")
 
     loop = (loop+1)%10
 

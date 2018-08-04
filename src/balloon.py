@@ -4,7 +4,7 @@ import os
 import time
 import random
 
-class Ballon:
+class Balloon:
     usb = '/dev/tty.usbmodem1411' 
     port = 9600
     message = "b\r"
