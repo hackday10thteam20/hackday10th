@@ -82,7 +82,7 @@ while(1):
    # graph.drawing(result)
 
     #風船をふくらませる
-    if result >= MAX_VALUE:
+    if result >= MAX_VALUE/2:
         balloon.send(True)
         print("balloon!!!!")
     else:
